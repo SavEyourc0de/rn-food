@@ -17,6 +17,7 @@ export default () => {
                 }
             });
             setResults(response.data.businesses);
+            console.log(results);
         }catch (err){
             console.log(err);
             setErrMessage('something went wrong');
