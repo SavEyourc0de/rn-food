@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import yelp from '../api/yelp';
 
-const constantLocation = 'Dumaguete City';
+const constantLocation = 'Visayas';
 
 export default () => {
     const [results, setResults]= useState([]);

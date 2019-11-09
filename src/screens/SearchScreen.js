@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
 import ResultsList from '../components/ResultsList';
@@ -12,28 +12,30 @@ const SearchScreen = () => {
         return setTerm(term);
     };
 
-    const filterByPrice = (price) => {
-        return results.filter(results => {
-            results.price === price ;
+    const filterResultsByPrice = price => {
+        // price === '$' || '$$' || '$$$'
+        return results.filter(result => {
+          return result.price === price;
         });
-    };
+      };
 
     return (
-        <View>
+        <>
             <SearchBar
                 term={term}
                 onTermChange={termHandler}
                 onSubmit={() => searchApi(term)}
             />
         
-        <Text>We have found {results.length} results</Text>
+        {/* <Text>We have found {results.length} results</Text> */}
         {errMessage ? <Text>{errMessage}</Text> : null}
 
-        <ResultsList results={filterByPrice('₱')} title = "Cost Effective"/>
-        <ResultsList results={filterByPrice('₱₱')} title = "Bit Pricer"/>
-        <ResultsList results={filterByPrice('₱₱₱')} title = "Big Spender!"/>
-
-        </View>
+        <ScrollView>
+            <ResultsList results={filterResultsByPrice("₱")} title = "Cost Effective"/>
+            <ResultsList results={filterResultsByPrice("₱₱")} title = "Bit Pricer"/>
+            <ResultsList results={filterResultsByPrice("₱₱₱")} title = "Big Spender!"/>
+        </ScrollView>
+        </>
     );
 }
 
